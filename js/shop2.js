@@ -91,9 +91,15 @@ function buy(id) {
 // Ejercicio 2
 function cleanCart() {
 
+    printCart(cart);
+    calculateTotal(cart);
     cartList.length = 0;
     document.getElementById("count_product").innerHTML = cartList.length
-    console.log(cartList)
+    document.getElementById('total_price').innerHTML = '';
+    
+
+    console.log(cartList);
+    
 
 
 }
@@ -150,6 +156,7 @@ function generateCart() {
   
     applyPromotionsCart(cart);
     calculateTotal(cart);
+    printCart(cart);
     
     console.log(total);                                  
     console.log(cart);
@@ -166,8 +173,8 @@ function applyPromotionsCart(cart){
             cart[i].subtotalWithDiscount = cart[i].quantity *10                         // cada unidad valdra 10eu 
         }
         else if(cart[i].name === 'Instant cupcake mixture' && cart[i].quantity >=10){       // si es Instant cupcake y hay mas de 10 unidades
-            //cart[i].subtotalWithDiscount = (cart[i].price*2/3)*cart[i].quantity;          // el precio se reduce 2/3
-            cart[i].subtotalWithDiscount = (cart[i].price * 2 * cart[i].quantity) /3;
+            //cart[i].subtotalWithDiscount = (cart[i].price*2/3)*cart[i].quantity;          
+            cart[i].subtotalWithDiscount = (cart[i].price * 2 * cart[i].quantity) /3;           // el precio se reduce 2/3
             //cart[i].subtotalWithDiscount = cart[i].subtotalWithDiscount.toFixed(2);               // redondeamos a 2 decimales
             cart[i].subtotalWithDiscount = parseFloat(cart[i].subtotalWithDiscount.toFixed(2));     // asi evitamos que se '033.00'
                        
@@ -178,6 +185,37 @@ function applyPromotionsCart(cart){
     
 }
 
+// Ejercicio 6
+
+function printCart(cart) {
+
+    document.getElementById('total_price').innerHTML = total;
+    let table = document.getElementById('cart_list')
+    let listaCompra = [];
+    
+
+
+    for(i=0; i<cart.length;i++){
+        if (cart[i].subtotalWithDiscount){
+        let fila = `<tr>
+
+        <td>${cart[i].name}</td>
+        <td>${cart[i].price}</td>
+        <td>${cart[i].quantity}</td>
+        <td>${cart[i].subtotalWithDiscount}</td>
+        </tr>`
+        listaCompra.push(fila);
+        }
+        
+    
+    } 
+    
+    // document.getElementById('cart_list').innerHTML = listaCompra;
+    table.innerHTML = listaCompra.join('');
+
+
+}
+
 
 
 
@@ -185,6 +223,7 @@ function applyPromotionsCart(cart){
 
 
 function open_modal(){
+    
 	console.log("Open Modal");
 	
     
