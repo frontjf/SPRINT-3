@@ -83,7 +83,7 @@ function buy(id) {
 
    generateCart();
    document.getElementById("count_product").innerHTML = cartList.length;   // pone el numero de productos en el HTML 'count_product'
-   // console.log(cartList);
+   
    
 
 }
@@ -91,11 +91,12 @@ function buy(id) {
 // Ejercicio 2
 function cleanCart() {
 
-    printCart(cart);
-    calculateTotal(cart);
-    cartList.length = 0;
-    document.getElementById("count_product").innerHTML = cartList.length
-    document.getElementById('total_price').innerHTML = '';
+    
+    cartList.length = 0;                            // ponemos cartList a 0
+    printCart(cart);                                // como cartList esta vacia esta funcion no dibuja nada en html pq no hay productos
+    calculateTotal(cart);                           // al no haber producto el calculo final es 0
+    document.getElementById("count_product").innerHTML = cartList.length        // aparecera un 0 en el icono del carrito
+    document.getElementById('total_price').innerHTML = '';                      // y el precio total tambien vacio
     
 
     console.log(cartList);
@@ -109,10 +110,10 @@ function cleanCart() {
 function calculateTotal(cart) {
 
     total = 0;
-    for (let i = 0; i < cart.length; i++) {
+    for (let i = 0; i < cart.length; i++) {             // recorremos cart sumando el precio con el dto
           total += cart[i].subtotalWithDiscount;
         }
-    // console.log(total);
+    
     return total;
     
 
@@ -189,15 +190,15 @@ function applyPromotionsCart(cart){
 
 function printCart(cart) {
 
-    document.getElementById('total_price').innerHTML = total;
-    let table = document.getElementById('cart_list')
-    let listaCompra = [];
+    document.getElementById('total_price').innerHTML = total;      // ponemos precio total
+    let table = document.getElementById('cart_list');              // en la variable table ponemos el html donde escribiremos
+    let listaCompra = [];                                          // array para poner productos seleccionados de cart 
     
 
 
-    for(i=0; i<cart.length;i++){
-        if (cart[i].subtotalWithDiscount){
-        let fila = `<tr>
+    for(i=0; i<cart.length;i++){                                    // recorremos cart
+        if (cart[i].subtotalWithDiscount){                          // si tiene el dto (quiere decir que el producto esta seleccionado)
+        let fila = `<tr>                                            
 
         <td>${cart[i].name}</td>
         <td>${cart[i].price}</td>
@@ -205,13 +206,12 @@ function printCart(cart) {
         <td>${cart[i].subtotalWithDiscount}</td>
         </tr>`
         listaCompra.push(fila);
-        }
-        
+        }                                   // en la variable fila escribimos la tabla y ponemos los productos con el $ de javascript correspondiente
+                                            // al item del producto que hay seleccionado en cart
     
     } 
     
-    // document.getElementById('cart_list').innerHTML = listaCompra;
-    table.innerHTML = listaCompra.join('');
+    table.innerHTML = listaCompra.join('');  // añadimos '' a la tabla
 
 
 }
@@ -228,6 +228,10 @@ function open_modal(){
 	
     
 }
+
+
+
+
   
       
   
