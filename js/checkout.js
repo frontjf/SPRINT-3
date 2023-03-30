@@ -3,25 +3,28 @@
 
 
  // Exercise 6
-
- function validate() {
-		
-	let error = 0;
-	// Get the input fields
-	let fName = document.getElementById("fName");
+	let form = document.getElementById('form');
+ 
+ 	let fName = document.getElementById("fName");
 	let fEmail = document.getElementById("fEmail");
 	let fLastN = document.getElementById("fLastN");
 	let fAddress = document.getElementById("fAddress");
 	let fPassword = document.getElementById("fPassword");
-	let fPhone = document.getElementById("fPhone");		
+	let fPhone = document.getElementById("fPhone");	
+ 
+
+	let regex = /^[a-zA-Z]{3,}$/;                                       // Expresión regular que solo permite letras y un mínimo de 3 caracteres
+  	let regexMail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;    // Expresión regular para validar correo electrónico
+  	let regexPass = /^[a-zA-Z0-9]+$/g;						            // Expresión regular para validar contraseña
+  	let regexPhone = /^[0-9]{0,15}$/;                                   // Expresión regular para validar teléfono
 
 
-
-  let regex = /^[a-zA-Z]{3,}$/;                                       // Expresión regular que solo permite letras y un mínimo de 3 caracteres
-  let regexMail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;    // Expresión regular para validar correo electrónico
-  let regexPass = /^[a-zA-Z0-9]+$/g;						          // Expresión regular para validar contraseña
-  let regexPhone = /^[0-9]{0,15}$/;                                   // Expresión regular para validar teléfono
-
+function validate() {
+	
+		
+	let error = 0;
+	// Get the input fields
+	
 
 	// Get the error elements
 	let errorName = document.getElementById("errorName");
@@ -37,55 +40,85 @@
 	// Validate fields entered by the user: name, phone, password, and email
 	if(fName.value == "" || !regex.test(fName.value)){
 		
-		fName.classList.add('border-danger');   				// con esta linia me sale uncaugh en la consola de forma rapida y desaparece
-		//errorName.className.add('is-invalid');					// mismo error que arriba
-		alert('nombre');
-		//fName.style.border = '1px solid red';
+		//fName.classList.add('border-danger');   				// con esta linia me sale uncaugh en la consola de forma rapida y desaparece
+		
+		//alert('error nombre');
+		errorName.classList.add('is-invalid');				
+		errorName.style.display = 'block'; 
+		fName.style.border = '1px solid red';
 		error++;
 		
 	}
 	
   
 	if(fEmail.value == "" || !regexMail.test(fEmail.value)){
-		alert('mail');
+		//alert('error mail');
+		fEmail.style.border = '1px solid red';
+		errorEmail.classList.add('is-invalid');				
+		errorEmail.style.display = 'block'; 
 		error++;
 	}
 
 	if(fLastN.value == "" || !regex.test(fLastN.value)){
-		alert('apellido')
+		//alert('error apellido')
+		errorLastN.classList.add('is-invalid');				
+		errorLastN.style.display = 'block'; 
+		fLastN.style.border = '1px solid red';
 		error++;
 
 
 	}
 
 	if(fAddress.value == "" || !regex.test(fAddress.value)){
-		alert('direccion');
+		//alert('error direccion');
+		errorAddress.classList.add('is-invalid');				
+		errorAddress.style.display = 'block'; 
+		fAddress.style.border = '1px solid red';
 		error++;
 
 	}
 
 	if(fPassword.value == "" || !regexPass.test(fPassword.value)){
-		alert('error pass');
+		//alert('error pass');
+		errorPassword.classList.add('is-invalid');				
+		errorPassword.style.display = 'block'; 
+		fPassword.style.border = '1px solid red';
 		error++;
 
 		
 	 }
 
 	if(fPhone.value == "" || !regexPhone.test(fPhone.value)){
-		alert('telefono erroneo');
+		//alert('telefono erroneo');
+		errorPhone.classList.add('is-invalid');				
+		errorPhone.style.display = 'block'; 
+		fPhone.style.border = '1px solid red';
 		error++;
 
 		
 	}
    
 	 if(error>0){
-		 alert("Error");
+		
+		//alert("Error");
+		
+				
 	 }else{
 		 alert("OK");
 	 }
 		
+	 
 
 }
+//document.addEventListener('click', validate);
+form.addEventListener("submit", (e) =>{
+	e.preventDefault();
+	validate();
+});
+
+
+
+
     
  
 
